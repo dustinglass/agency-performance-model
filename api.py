@@ -173,14 +173,11 @@ class Report(Resource):
         sql += ' GROUP BY i.AGENCY_ID, p.PROD_LINE;'
 
         df = _select_df(sql)
-        # s = StringIO()
-        # df.to_csv(s)
         b = BytesIO()
         df.to_csv(b)
-        # b.write(s.getvalue().encode('utf-8'))
         b.seek(0)
-        # s.close()
-        return send_file(b, mimetype = 'text/csv')
+        return send_file(b, mimetype = 'text/csv', as_attachment=True, 
+                         attachment_filename='report.csv')
 
 
 api.add_resource(Detail, '/detail')
