@@ -172,9 +172,9 @@ class Report(Resource):
             sql += ' WHERE {}'.format(' AND '.join(where))
         sql += ' GROUP BY i.AGENCY_ID, p.PROD_LINE;'
 
-        df = _select_df(sql, index=False)
+        df = _select_df(sql)
         b = BytesIO()
-        df.to_csv(b)
+        df.to_csv(b, index=False)
         b.seek(0)
         return send_file(b, mimetype = 'text/csv', as_attachment=True, 
                          attachment_filename='report.csv')
