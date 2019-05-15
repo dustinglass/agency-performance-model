@@ -104,36 +104,36 @@ class Summary(Resource):
             if param not in PARAM_TABLE_MAP:
                 raise InvalidParameter(param)
 
-        sql = '''SELECT 
-            COUNT(*) AS results_count, 
-            SUM(RETENTION_POLY_QTY) AS retention_poly_qty_sum,
-            SUM(POLY_INFORCE_QTY) AS poly_inforce_qty_sum,
-            SUM(PREV_POLY_INFORCE_QTY) AS prev_poly_inforce_qty_sum,
-            SUM(NB_WRTN_PREM_AMT) AS nb_wrtn_prem_amt_sum,
-            SUM(WRTN_PREM_AMT) AS wrtn_prem_amt_sum,
-            SUM(PREV_WRTN_PREM_AMT) AS prev_wrtn_prem_amt_sum,
-            SUM(PRD_ERND_PREM_AMT) AS prd_ernd_prem_amt_sum,
-            SUM(PRD_INCRD_LOSSES_AMT) AS prd_incrd_losses_amt_sum,
-            AVG(RETENTION_RATIO) AS retention_ratio_avg,
-            AVG(LOSS_RATIO) AS loss_ratio_avg,
-            AVG(LOSS_RATIO_3YR) AS loss_ratio_3yr_avg,
-            AVG(GROWTH_RATE_3YR) AS growth_rate_3yr_avg,
-            SUM(CL_BOUND_CT_MDS) AS cl_bound_ct_mds_sum,
-            SUM(CL_QUO_CT_MDS) AS cl_quo_ct_mds_sum,
-            SUM(CL_BOUND_CT_SBZ) AS cl_bound_ct_sbz_sum,
-            SUM(CL_QUO_CT_SBZ) AS cl_quo_ct_sbz_sum,
-            SUM(CL_QUO_CT_eQT) AS cl_quo_ct_eqt_sum,
-            SUM(PL_BOUND_CT_ELINKS) AS pl_bound_ct_elinks_sum,
-            SUM(PL_QUO_CT_ELINKS) AS pl_quo_ct_elinks_sum,
-            SUM(PL_BOUND_CT_PLRANK) AS pl_bound_ct_plrank_sum,
-            SUM(PL_QUO_CT_PLRANK) AS pl_quo_ct_plrank_sum,
-            SUM(PL_BOUND_CT_eQTte) AS pl_bound_ct_eqtte_sum,
-            SUM(PL_QUO_CT_eQTte) AS pl_quo_ct_eqtte_sum,
-            SUM(PL_BOUND_CT_APPLIED) AS pl_bound_ct_applied_sum,
-            SUM(PL_QUO_CT_APPLIED) AS pl_quo_ct_applied_sum,
-            SUM(PL_BOUND_CT_TRANSACTNOW) AS pl_bound_ct_transactnow_sum,
-            SUM(PL_QUO_CT_TRANSACTNOW) AS pl_quo_ct_transactnow_sum
-        FROM insurance''' 
+        sql = '''SELECT
+            COUNT(*) AS RESULTS_COUNT, 
+            SUM(RETENTION_POLY_QTY) AS RETENTION_POLY_QTY_SUM,
+            SUM(POLY_INFORCE_QTY) AS POLY_INFORCE_QTY_SUM,
+            SUM(PREV_POLY_INFORCE_QTY) AS PREV_POLY_INFORCE_QTY_SUM,
+            SUM(NB_WRTN_PREM_AMT) AS NB_WRTN_PREM_AMT_SUM,
+            SUM(WRTN_PREM_AMT) AS WRTN_PREM_AMT_SUM,
+            SUM(PREV_WRTN_PREM_AMT) AS PREV_WRTN_PREM_AMT_SUM,
+            SUM(PRD_ERND_PREM_AMT) AS PRD_ERND_PREM_AMT_SUM,
+            SUM(PRD_INCRD_LOSSES_AMT) AS PRD_INCRD_LOSSES_AMT_SUM,
+            AVG(RETENTION_RATIO) AS RETENTION_RATIO_AVG,
+            AVG(LOSS_RATIO) AS LOSS_RATIO_AVG,
+            AVG(LOSS_RATIO_3YR) AS LOSS_RATIO_3YR_AVG,
+            AVG(GROWTH_RATE_3YR) AS GROWTH_RATE_3YR_AVG,
+            SUM(CL_BOUND_CT_MDS) AS CL_BOUND_CT_MDS_SUM,
+            SUM(CL_QUO_CT_MDS) AS CL_QUO_CT_MDS_SUM,
+            SUM(CL_BOUND_CT_SBZ) AS CL_BOUND_CT_SBZ_SUM,
+            SUM(CL_QUO_CT_SBZ) AS CL_QUO_CT_SBZ_SUM,
+            SUM(CL_QUO_CT_EQT) AS CL_QUO_CT_EQT_SUM,
+            SUM(PL_BOUND_CT_ELINKS) AS PL_BOUND_CT_ELINKS_SUM,
+            SUM(PL_QUO_CT_ELINKS) AS PL_QUO_CT_ELINKS_SUM,
+            SUM(PL_BOUND_CT_PLRANK) AS PL_BOUND_CT_PLRANK_SUM,
+            SUM(PL_QUO_CT_PLRANK) AS PL_QUO_CT_PLRANK_SUM,
+            SUM(PL_BOUND_CT_EQTTE) AS PL_BOUND_CT_EQTTE_SUM,
+            SUM(PL_QUO_CT_EQTTE) AS PL_QUO_CT_EQTTE_SUM,
+            SUM(PL_BOUND_CT_APPLIED) AS PL_BOUND_CT_APPLIED_SUM,
+            SUM(PL_QUO_CT_APPLIED) AS PL_QUO_CT_APPLIED_SUM,
+            SUM(PL_BOUND_CT_TRANSACTNOW) AS PL_BOUND_CT_TRANSACTNOW_SUM,
+            SUM(PL_QUO_CT_TRANSACTNOW) AS PL_QUO_CT_TRANSACTNOW_SUM
+        FROM INSURANCE''' 
         sql = _build_out_sql(sql, request.args)
         return _sql_response(sql, request.args)
 
