@@ -173,12 +173,13 @@ class Report(Resource):
         sql += ' GROUP BY i.AGENCY_ID, p.PROD_LINE;'
 
         df = _select_df(sql)
-        s = StringIO()
-        df.to_csv(s)
+        # s = StringIO()
+        # df.to_csv(s)
         b = BytesIO()
-        b.write(s.getvalue().encode('utf-8'))
+        df.to_csv(b)
+        # b.write(s.getvalue().encode('utf-8'))
         b.seek(0)
-        s.close()
+        # s.close()
         return send_file(b, mimetype = 'text/csv')
 
 
