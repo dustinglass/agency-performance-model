@@ -172,7 +172,7 @@ class Report(Resource):
             sql += ' WHERE {}'.format(' AND '.join(where))
         sql += ' GROUP BY i.AGENCY_ID, p.PROD_LINE;'
 
-        df = _select_df(sql)
+        df = _select_df(sql, index=False)
         b = BytesIO()
         df.to_csv(b)
         b.seek(0)
@@ -183,6 +183,7 @@ class Report(Resource):
 api.add_resource(Detail, '/detail')
 api.add_resource(Summary, '/summary')
 api.add_resource(Report, '/report')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
