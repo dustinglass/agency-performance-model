@@ -29,6 +29,7 @@ WHERE_TEMPLATE = "{}.{} = '{}'"
 
 
 app = Flask(__name__)
+app.debug=True
 api = Api(app)
 
 
@@ -230,4 +231,4 @@ api.add_resource(Report, '/report')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
