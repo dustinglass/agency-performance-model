@@ -115,13 +115,13 @@ def _build_out_sql(sql, request_args):
 
 
 def _check_params(required_params):
-    for param in required_params:
-        if param not in request.args.keys():
-            raise MissingParameter(param)
     for param in request.args.keys():
         if param not in PARAM_TABLE_MAP \
         and param not in required_params:
             raise InvalidParameter(param)
+    for param in required_params:
+        if param not in request.args.keys():
+            raise MissingParameter(param)
 
 
 class Details(Resource):
