@@ -193,12 +193,12 @@ class Report(Resource):
 
     def get(self):
         sql = '''SELECT
-            i.AGENCY_ID AS agency_id,
-            p.PROD_LINE AS product_line,
-            SUM(i.NB_WRTN_PREM_AMT) AS nb_wrtn_prem_amt,
-            SUM(i.WRTN_PREM_AMT) AS wrtn_prem_amt,
-            SUM(i.PREV_WRTN_PREM_AMT) AS prev_wrtn_prem_amt,
-            SUM(i.PRD_ERND_PREM_AMT) AS prd_ernd_prem_amt
+            i.AGENCY_ID AS AGENCY_ID,
+            p.PROD_LINE AS PROD_LINE,
+            SUM(i.NB_WRTN_PREM_AMT) AS NB_WRTN_PREM_AMT_SUM,
+            SUM(i.WRTN_PREM_AMT) AS WRTN_PREM_AMT_SUM,
+            SUM(i.PREV_WRTN_PREM_AMT) AS PREV_WRTN_PREM_AMT_SUM,
+            SUM(i.PRD_ERND_PREM_AMT) AS PRD_ERND_PREM_AMT_SUM
         FROM insurance i
         INNER JOIN product p ON p.id = i.PRODUCT_ID
         '''
@@ -219,8 +219,11 @@ class Report(Resource):
         sql += ' GROUP BY i.AGENCY_ID, p.PROD_LINE;'
 
         df = _select_df(sql)
+        s = StringIO()
+        df.to_csv(s, index=False)
         b = BytesIO()
-        df.to_csv(b, index=False)
+        b.write(s.getvalue().encode('utf-8'))
+        s.close()
         b.seek(0)
         return send_file(b, mimetype = 'text/csv', as_attachment=True, 
                          attachment_filename='report.csv')
