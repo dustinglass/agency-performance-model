@@ -47,13 +47,16 @@ def main():
     """Insert raw Kaggle dataset into table "agency_performance", then
     clean and create star schema with the same dataset.
     """
+    print('Extracting')
     getoutput('kaggle datasets download -d moneystore/agencyperformance')
+
+    print('Loading raw dataset')
     df = extract_df('agencyperformance.zip', 'finalapi.csv')
     load_df(df, 'agency_performance', if_exists='append')
-
+    
+    print('Loading star schema')
     fact_df = df.copy()
     fact_df = fact_df.astype(object).where(notnull(df), None)
-
     fact_df, agency_df = transform_df(
         fact_df, 'agency', ['AGENCY_ID', 'PRIMARY_AGENCY_ID'], 
         id_column='AGENCY_ID', drop_columns=['PRIMARY_AGENCY_ID']
