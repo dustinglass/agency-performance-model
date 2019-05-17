@@ -1,4 +1,3 @@
-from subprocess import getoutput
 from zipfile import ZipFile
 
 from numpy import NaN
