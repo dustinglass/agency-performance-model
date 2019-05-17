@@ -35,7 +35,7 @@ Hence, nginx is used as web server, GUnicorn as WSGI server, and supervisor for 
 
 ### /details
 
-Returns raw rows of data for a specified agency and product line.
+Returns a JSON array of the raw rows of data for a specified agency and product line.
 
 #### Example
 
@@ -65,7 +65,7 @@ curl 'http://18.228.38.173/details?AGENCY_ID=3&PROD_LINE=CL'
 
 ### /summary
 
-Returns a summary of all numeric fields (QTY, AMT, etc.) according to supplied SQL aggregation operator.
+Returns a JSON object summarizing all numeric fields (QTY, AMT, etc.) aggregated according to a supplied SQL operator.
 
 #### Example
 
