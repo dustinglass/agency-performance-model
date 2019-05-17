@@ -205,13 +205,17 @@ class Report(Resource):
         if bool(request.args):
             where = []
             for param, value in request.args.items():
-                if param not in ['PL_START_YEAR', 'PL_END_YEAR']:
+                if param not in ['MIN_PL_START_YEAR', 'MAX_PL_START_YEAR',
+                                 'MIN_PL_END_YEAR', 'MAX_PL_END_YEAR']:
                     raise InvalidParameter(param)
                 elif len(value) == 4 and value.isdigit():
-                    if param == 'PL_START_YEAR':
-                        where.append('i.PL_START_YEAR >= {}'.format(value))
+                    if param.startswith('MIN'):
+                        operator = '>'
                     else:
-                        where.append('i.PL_END_YEAR <= {}'.format(value))
+                        operator = '<'
+                    where.append('i.{} {}= {}'.format(
+                        param[4:], operator, value
+                        ))
                 else:
                     message = '{} must follow the format YYYY'
                     raise InvalidParameter(param, message)
