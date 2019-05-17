@@ -92,9 +92,9 @@ def _select_df(sql, dbapi='sqlite:///insurance.db'):
     return read_sql(sql, con)
 
 
-def _sql_response(sql, request_args):
+def _sql_response(sql):
     """Return API response based on SQL query `sql`."""
-    data = _select_df(sql).to_dict(orient='records')
+    return _select_df(sql).to_dict(orient='records')
     return {'params': request_args, 'data': data}
 
 
@@ -134,7 +134,7 @@ class Details(Resource):
 
         sql = 'SELECT insurance.* FROM insurance'
         sql = _build_out_sql(sql, request.args)
-        return _sql_response(sql, request.args)
+        return _sql_response(sql)
 
 
 class Summary(Resource):
@@ -176,11 +176,12 @@ class Summary(Resource):
             {0}(PL_BOUND_CT_TRANSACTNOW) AS PL_BOUND_CT_TRANSACTNOW,
             {0}(PL_QUO_CT_TRANSACTNOW) AS PL_QUO_CT_TRANSACTNOW
         FROM INSURANCE'''.format(request.args['AGG'])
-        args = dict(request.args)
+        args = dict(request.args.items())
         for i in self.required_params:
             del args[i]
         sql = _build_out_sql(sql, args)
-        return _sql_response(sql, request.args)
+        print(sql)
+        return _sql_response(sql)
 
 
 class Report(Resource):
