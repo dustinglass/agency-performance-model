@@ -88,8 +88,8 @@ def handle_missing_parameter(error):
 
 def _select_df(sql, dbapi='sqlite:///insurance.db'):
     """Return pandas.DataFrame of result of SQL query `sql`."""
-    engine = create_engine(dbapi, echo=False)
-    return read_sql(sql, engine)
+    with create_engine(dbapi, echo=False) as con:
+        return read_sql(sql, con)
 
 
 def _sql_response(sql, request_args):

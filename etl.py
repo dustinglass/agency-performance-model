@@ -17,8 +17,9 @@ def load_df(df, table_name, dbapi='sqlite:///insurance.db',
     """Insert data from `df` into table `table_name` in the database 
     identified by `dbapi`.
     """
-    engine = create_engine(dbapi, echo=False)
-    df.to_sql(table_name, con=engine, if_exists=if_exists, index=False)
+    with create_engine(dbapi, echo=False) as con:
+        print('Inserting {} rows into {}'.format(len(df.index), table_name))
+        df.to_sql(table_name, con=con, if_exists=if_exists, index=False)
 
 
 def transform_df(fact_df, table_name, source_columns, id_column=None, 
