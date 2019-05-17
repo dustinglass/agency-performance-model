@@ -20,7 +20,6 @@ def load_df(df, table_name, dbapi='sqlite:///insurance.db',
     con = create_engine(dbapi, echo=False)
     print('Inserting {} rows into {}'.format(len(df.index), table_name))
     df.to_sql(table_name, con=con, if_exists=if_exists, index=False)
-    con.close()
 
 
 def transform_df(fact_df, table_name, source_columns, id_column=None, 
